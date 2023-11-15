@@ -1,6 +1,7 @@
 package org.example.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.dto.StudentAddInGroup;
 import org.example.dto.StudentDao;
 import org.example.model.Student;
 import org.example.repository.StudentRepository;
@@ -17,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StudentService implements StudentDao {
     private final StudentRepository studentRepository;
+    private final StudyGroupService studyGroupService;
 
     @Override
     public List<Student> getAll() {
@@ -38,5 +40,12 @@ public class StudentService implements StudentDao {
         studentRepository.delete(get(id));
     }
 
-
+    public void add(StudentAddInGroup studentAdd) {
+        Student student = new Student();
+        student.setFirstName(studentAdd.getFirstName());
+        student.setLastName(studentAdd.getLastName());
+        student.setAge(studentAdd.getAge());
+        student.setStudyGroup(studyGroupService.findByName(studentAdd.getGroupName()));
+        save(student);
+    }
 }

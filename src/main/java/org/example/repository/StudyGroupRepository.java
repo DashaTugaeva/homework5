@@ -30,5 +30,5 @@ public interface StudyGroupRepository extends JpaRepository<StudyGroup, Long> {
     """)
     List<AverageGrade> searchAverageGradeForStudentInGroup(@Param("nameGroup") String nameGroup);
 
-
+    StudyGroup findByName(String name);
 }

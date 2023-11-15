@@ -40,4 +40,8 @@ public class StudyGroupService implements StudyGroupDao {
     public List<AverageGrade> searchAverageGradeForStudentInGroup(String query) {
         return studyGroupRepository.searchAverageGradeForStudentInGroup(query);
     }
+
+    public StudyGroup findByName(String name){
+        return studyGroupRepository.findByName(name);
+    }
 }

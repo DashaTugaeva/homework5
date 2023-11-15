@@ -3,8 +3,10 @@ package org.example.api;
 import lombok.RequiredArgsConstructor;
 import org.example.dto.*;
 import org.example.service.AcademicRecordService;
+import org.example.service.StudyGroupService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 
 @RestController
@@ -12,15 +14,21 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/academic_record")
 public class AcademicRecordApi {
     private final AcademicRecordService academicRecordService;
+    private final StudyGroupService studyGroupService;
 
-    @PostMapping("/edit_grade")
-    public String editGrade(@RequestBody StudentGradeEditByStudentId studentGrade) {
+
+    @GetMapping("groups/{groupId}/students/avg_grade")
+    public SimpleResponse<List<AverageGrade>> search(@PathVariable Long groupId) {
+        var result = studyGroupService.searchAverageGradeForStudentInGroup(groupId.toString());
+        return new SimpleResponse<>(result);
+    }
+
+
+    @PostMapping("students/edit_grade")
+    public void editGrade(@RequestBody StudentGradeEditByStudentId studentGrade) {
         System.out.println(studentGrade.getId() + " " + studentGrade.getNameObject() + " " + studentGrade.getGrade());
         Long id = academicRecordService.findByStudentIdAndObject(studentGrade.getId(), studentGrade.getNameObject());
-        int oldGrade = academicRecordService.editAverageGrade(id, studentGrade.getGrade());
-        return "оценка студента c id:" + studentGrade.getId() +
-                " по предмету:" + studentGrade.getNameObject() +
-                " с оценки:" + oldGrade + " успешно изменина на оценку:" + studentGrade.getGrade();
+        academicRecordService.editAverageGrade(id, studentGrade.getGrade());
     }
 
 }

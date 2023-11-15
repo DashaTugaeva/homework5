@@ -19,7 +19,8 @@ public class DataLoaderApi {
 
         return "/load - Для загрузки данных из файла students.csv в БД \n" +
                 "/academic_record/edit_grade - изменение оценки конкретного ученика \n" +
-                "/student/average_grade - получение средних оценок";
+                "/academic_record/groups/{groupId}/students/avg_grade - получение средних оценок \n" +
+                "/students/add_in_group - добавление ученика в класс";
     }
 
     @GetMapping("load")
