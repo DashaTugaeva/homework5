@@ -25,10 +25,10 @@ public interface StudyGroupRepository extends JpaRepository<StudyGroup, Long> {
          on s.id = ar.student.id
          join StudyPlan sp
          ON sp.id = ar.studyPlan.id
-         where sg.name = :nameGroup
+         where sg.id = :groupId
          group by s.firstName, s.lastName, s.age, sg.name
     """)
-    List<AverageGrade> searchAverageGradeForStudentInGroup(@Param("nameGroup") String nameGroup);
+    List<AverageGrade> searchAverageGradeForStudentInGroup(@Param("groupId") Long groupId);
 
     StudyGroup findByName(String name);
 }

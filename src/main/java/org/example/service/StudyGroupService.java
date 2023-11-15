@@ -37,8 +37,8 @@ public class StudyGroupService implements StudyGroupDao {
         studyGroupRepository.delete(get(id));
     }
 
-    public List<AverageGrade> searchAverageGradeForStudentInGroup(String query) {
-        return studyGroupRepository.searchAverageGradeForStudentInGroup(query);
+    public List<AverageGrade> searchAverageGradeForStudentInGroup(Long groupId) {
+        return studyGroupRepository.searchAverageGradeForStudentInGroup(groupId);
     }
 
     public StudyGroup findByName(String name){

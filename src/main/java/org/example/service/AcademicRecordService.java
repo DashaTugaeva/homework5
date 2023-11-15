@@ -43,11 +43,9 @@ public class AcademicRecordService implements AcademicRecordDao {
     public Long findByStudentIdAndObject(Long id, String nameObject) {
         return academicRecordRepository.findByStudentIdAndObject(id, nameObject);
     }
-    public int editAverageGrade(Long id, int grade) {
+    public void editAverageGrade(Long id, int grade) {
         AcademicRecord academicRecord = get(id);
-        int oldGrade = academicRecord.getGrade();
         academicRecord.setGrade(grade);
         save(academicRecord);
-        return oldGrade;
     }
 }
